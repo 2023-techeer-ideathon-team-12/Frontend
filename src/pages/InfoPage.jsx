@@ -4,34 +4,65 @@ import Review from '../components/Review';
 
 function InfoPage() {
   const [isUsing, setIsUsing] = useState(false);
-  const [userCount, setUserCount] = useState(5); // 이용자수 초기 설정
-  const [infoData, setInfoData] = useState([]);
+  const [infoData, setInfoData] = useState({});
+  const id = 9;
 
-  const handleButtonClick = () => {
-    if (infoData) {
-      setUserCount((prevCount) => prevCount - 1); // 이용자수 감소
-    } else {
-      setUserCount((prevCount) => prevCount + 1);
+  const handleStartUsing = async () => {
+    setInfoData((prevData) => ({
+      ...prevData,
+      currentUser: prevData.currentUser + 1,
+    }));
+
+    try {
+      await axios.post(
+        `http://localhost:8080/api/v1/gyms/${infoData.id}/increase`,
+        {
+          id: infoData.id,
+          currentUser: infoData.currentUser + 1,
+        },
+      );
+    } catch (error) {
+      console.error(error);
     }
 
-    setIsUsing((prevState) => !prevState);
+    setIsUsing(true);
+  };
+
+  const handleStopUsing = async () => {
+    setInfoData((prevData) => ({
+      ...prevData,
+      currentUser: prevData.currentUser - 1,
+    }));
+
+    try {
+      await axios.post(
+        `http://localhost:8080/api/v1/gyms/${infoData.id}/decrease`,
+        {
+          id: infoData.id,
+          currentUser: infoData.currentUser - 1,
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    }
+
+    setIsUsing(false);
   };
 
   const handleBackButtonClick = () => {
     window.history.back();
   };
 
-  async function getData() {
-    try {
-      const res = await axios.get(`/api/gym/`);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
-    getData();
+    axios
+      .get('http://localhost:8080/api/gyms/' + id)
+      .then(function (response) {
+        console.log(response);
+        setInfoData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   return (
@@ -50,20 +81,32 @@ function InfoPage() {
           <img
             className="w-full"
             src="https://lh5.googleusercontent.com/p/AF1QipNPy9DxuapVB_Lvsg1uKr4bcksJ0P6FYEOq4wh4=w296-h168-n-k-no"
-            alt="Your Image"
+            alt="이미지"
           />
         </div>
 
-        <div className="text-left ml-15">
-          <h2 className="mt-10 font-bold text-3xl">{infoData.gyn_name}</h2>
-          <div className="text-sm">
-            <p>운영시간: 7:00~ 23:00</p>
-            <p>{infoData.address}</p>
-            <p>031-504-0111</p>
-            <p>현재 이용자수: {infoData.current_user}</p>
-            <p>운동기구:{infoData.machine} </p>
-          </div>
+        <div className="info-text">
+          <h2>{infoData.name}</h2>
+          <p>운영시간: 7:00~ 23:00</p>
+          <p>{infoData.address}</p>
+          <p>031-504-0111</p>
+          <p>현재 이용자수: {infoData.currentUser}</p>
+          <p>운동기구: {infoData.machine}</p>
+          <p>헬스장 혼잡도: {infoData.status}</p>
+          <br />
         </div>
+        <hr className="horizontal-line" />
+        <div className="btn-container">
+          {!isUsing && (
+            <button className="button-use" onClick={handleStartUsing}>
+              이용하기
+            </button>
+          )}
+          {isUsing && (
+            <button className="button-end" onClick={handleStopUsing}>
+              종료하기
+            </button>
+          )}
         <hr className="border-none border-t border-gray-300 my-10" />
         <div className="flex justify-end mr-4">
           <button
