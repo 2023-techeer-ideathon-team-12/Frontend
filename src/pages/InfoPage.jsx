@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import Review from '../components/Review';
+import React, { useEffect, useState } from 'react';
+import './InfoPage.css';
+import axios from 'axios';
 
 function InfoPage() {
   const [isUsing, setIsUsing] = useState(false);
-  const [userCount, setUserCount] = useState(5);
+  const [userCount, setUserCount] = useState(5); // 이용자수 초기 설정
+  const [infoData, setInfoData] = useState([]);
 
   const handleButtonClick = () => {
-    if (isUsing) {
-      setUserCount((prevCount) => prevCount - 1);
+    if (infoData) {
+      setUserCount((prevCount) => prevCount - 1); // 이용자수 감소
     } else {
       setUserCount((prevCount) => prevCount + 1);
     }
@@ -18,6 +20,19 @@ function InfoPage() {
   const handleBackButtonClick = () => {
     window.history.back();
   };
+
+  async function getData() {
+    try {
+      const res = await axios.get(`/api/gym/`);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, []);
 
   return (
     <div>
@@ -39,21 +54,19 @@ function InfoPage() {
           />
         </div>
 
-        <div className="text-left ml-15">
-          <h2 className="mt-10 font-bold text-3xl">헬로우짐</h2>
-          <p className="text-sm">운영시간: 7:00~ 23:00</p>
-          <p className="text-sm">경기도 시흥시 정왕동 1734-7 KR</p>
-          <p className="text-sm">031-504-0111</p>
-          <p className="text-sm">현재 이용자수: {userCount}</p>
-          <p className="text-sm">운동기구:</p>
+        <div className="info-text">
+          <h2>{infoData.gyn_name}</h2>
+          <p>운영시간: 7:00~ 23:00</p>
+          <p>{infoData.address}</p>
+          <p>031-504-0111</p>
+          <p>현재 이용자수: {infoData.current_user}</p>
+          <p>운동기구:{infoData.machine} </p>
           <br />
         </div>
         <hr className="border-none border-t border-gray-300 my-10" />
         <div className="flex justify-end mr-4">
           <button
-            className={`${
-              isUsing ? 'bg-red-500' : 'bg-green-500'
-            } text-white rounded-md h-12`}
+            className={infoData ? 'button-end' : 'button-use'}
             onClick={handleButtonClick}
           >
             <span className="mx-4">{isUsing ? '종료하기' : '이용하기'}</span>
