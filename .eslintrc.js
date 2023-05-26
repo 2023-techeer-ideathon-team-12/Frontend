@@ -1,21 +1,12 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es2021": true
+    "env": { 
+        "browser": true, 
+        "es6": true,
+        "node": true 
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ],
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
+    "extends": ["airbnb", "plugin:prettier/recommended"],
     "rules": {
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/react-in-jsx-scope": "off",
     }
 }
