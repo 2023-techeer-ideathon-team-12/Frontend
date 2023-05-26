@@ -1,5 +1,11 @@
+import Map from '../components/Map';
+
 function MainPage() {
-  return <>MainPage</>;
+  return (
+    <>
+      <Map />
+    </>
+  );
 }
 
 export default MainPage;
