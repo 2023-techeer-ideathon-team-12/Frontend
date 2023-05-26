@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './InfoPage.css';
 import axios from 'axios';
+import Review from '../components/Review';
 
 function InfoPage() {
   const [isUsing, setIsUsing] = useState(false);
@@ -31,7 +31,7 @@ function InfoPage() {
   }
 
   useEffect(() => {
-    getData()
+    getData();
   }, []);
 
   return (
@@ -54,19 +54,22 @@ function InfoPage() {
           />
         </div>
 
-        <div className="info-text">
-          <h2>{infoData.gyn_name}</h2>
-          <p>운영시간: 7:00~ 23:00</p>
-          <p>{infoData.address}</p>
-          <p>031-504-0111</p>
-          <p>현재 이용자수: {infoData.current_user}</p>
-          <p>운동기구:{infoData.machine} </p>
-          <br />
+        <div className="text-left ml-15">
+          <h2 className="mt-10 font-bold text-3xl">{infoData.gyn_name}</h2>
+          <div className="text-sm">
+            <p>운영시간: 7:00~ 23:00</p>
+            <p>{infoData.address}</p>
+            <p>031-504-0111</p>
+            <p>현재 이용자수: {infoData.current_user}</p>
+            <p>운동기구:{infoData.machine} </p>
+          </div>
         </div>
         <hr className="border-none border-t border-gray-300 my-10" />
         <div className="flex justify-end mr-4">
           <button
-            className={infoData ? 'button-end' : 'button-use'}
+            className={`${
+              isUsing ? 'bg-red-500' : 'bg-green-500'
+            } text-white rounded-md h-12`}
             onClick={handleButtonClick}
           >
             <span className="mx-4">{isUsing ? '종료하기' : '이용하기'}</span>
