@@ -2,13 +2,16 @@
     text-align: center;
     margin: 20px auto;
     padding: 5px;
-    width: 400px;
+    width: 500px;
+    height: 600px;
     border: 1px solid #ccc;
+    border-radius: 10px;
   }
 
 .info-text{
     text-align: left;
     margin-left: 15px;
+    overflow: auto;
 }
   .gym-info img {
     width: 100%;
@@ -98,15 +101,16 @@
   }
   .button-wrapper {
     position: relative;
-    display: inline-block;
+    display: flex;
+
   }
 
   .back-button {
     position: absolute;
-    top: 10px; /* Adjust the positioning as needed */
-    left: 10px; /* Adjust the positioning as needed */
+    top: 10px;
+    left: 10px;
     z-index: 2;
-    /* Add any additional styling for the button */
+    border-radius:50px;
   }
 
 
