@@ -7,6 +7,8 @@ const Map = () => {
   const [currentLatLng, setCurrentLatLng] = useState({
     latitude: 37.3418057,
     longitude: 126.7320972,
+    // latitude: 37.34408968277233,
+    // longitude: 126.74015069537656,
   });
 
   useEffect(() => {
@@ -66,6 +68,9 @@ const Map = () => {
         // 지도 중심좌표를 접속위치로 변경합니다
         // map.setCenter(locPosition);
       };
+
+      const bounds = map.getBounds();
+      console.log(bounds.getNorthEast());
     });
   }, [currentLatLng]);
 

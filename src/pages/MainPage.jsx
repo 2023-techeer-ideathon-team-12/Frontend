@@ -4,7 +4,9 @@ import Header from '../components/Header';
 function MainPage() {
   return (
     <>
-      <Header />
+      <div className="flex justify-center items-center">
+        <Header />
+      </div>
       <Map />
     </>
   );

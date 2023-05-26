@@ -1,0 +1,15 @@
+#header {
+  @media (min-width: 1430px) {
+    max-width: 340px;
+  }
+}
+
+.responsiveElement {
+  @media (min-width: 390px) {
+    display: none;
+  }
+
+  @media (min-width: 1430px) {
+    display: block;
+  }
+}
