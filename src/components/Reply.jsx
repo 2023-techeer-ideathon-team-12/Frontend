@@ -54,7 +54,7 @@ function Reply(props) {
   async function postData() {
     const url = 'http://localhost:8080/api/reviews';
     const data = {
-      gymId: 1,
+      gymId: id,
       content: value,
       star: 4,
     };
@@ -133,6 +133,7 @@ function Reply(props) {
                 key={y}
                 setSelectedValue={setSelectedValue}
                 setRefresh={setRefresh}
+                id={id}
               />
             ))}
           </>

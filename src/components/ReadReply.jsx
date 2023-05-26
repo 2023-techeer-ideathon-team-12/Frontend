@@ -6,7 +6,7 @@ import pencil_square from '../assets/image/pencil-square.svg';
 import reply_icon from '../assets/image/reply_icon.svg';
 
 function ReadReply(props) {
-  const { contents, setSelectedValue, setRefresh } = props;
+  const { contents, setSelectedValue, setRefresh, id } = props;
 
   const [putVis, setPutVis] = useState(false);
 
@@ -89,6 +89,7 @@ function ReadReply(props) {
               changePutVis={changePutVis}
               setSelectedValue={setSelectedValue}
               setRefresh={setRefresh}
+              id={id}
             />
           </div>
         ) : null}

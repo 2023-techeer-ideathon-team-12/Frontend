@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
 function PutReply(props) {
-  const { contents, setSelectedValue, changePutVis, setRefresh } = props;
+  const { contents, setSelectedValue, changePutVis, setRefresh, id } = props;
 
   const textAreaRef = useRef(null);
   const [value, setValue] = useState(contents.content);
@@ -33,7 +33,7 @@ function PutReply(props) {
   async function putData() {
     const url = `http://localhost:8080/api/reviews/${contents.reviewId}`;
     const data = {
-      gymId: 1,
+      gymId: id,
       content: value,
       star: 5,
     };
