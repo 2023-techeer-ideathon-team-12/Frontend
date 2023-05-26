@@ -2,14 +2,15 @@ import favorite from '../assets/image/favorite.png';
 import nonfavorite from '../assets/image/nonfavorite.png';
 import ScoreChart from './ScoreChart';
 
-function Score() {
+function Score(props) {
+  const { infoData } = props;
   return (
     <div className="">
       <div>
         <div className="flex">
           {/*별점 */}
           <div className="flex flex-col justify-center">
-            <span className=" text-5xl mb-4 mx-auto">4</span>
+            <span className=" text-5xl mb-4 mx-auto">{infoData.starAvg}</span>
             {/*별 */}
             <div className="flex">
               <img className="w-6 h-6" src={favorite} />
