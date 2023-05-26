@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styles from './Map.module.css';
 
 const { kakao } = window;
@@ -10,6 +11,7 @@ const Map = () => {
     // latitude: 37.34408968277233,
     // longitude: 126.74015069537656,
   });
+  const [aroundGymArr, setAroundGymArr] = useState([]);
 
   useEffect(() => {
     kakao.maps.load(() => {
@@ -65,15 +67,34 @@ const Map = () => {
         // 인포윈도우를 마커위에 표시합니다
         infowindow.open(map, marker);
 
-        // 지도 중심좌표를 접속위치로 변경합니다
-        // map.setCenter(locPosition);
+        const fetchMsw = async () => {
+          try {
+            const response = await axios.get('api/gym');
+            console.log(response.data);
+            const lat = response.data.gym_latitude;
+            const lon = response.data.gym_longtitude;
+            setAroundGymArr(aroundGymArr.concat({ latE: lat, lonE: lon }));
+            console.log(lat, lon);
+            const message =
+              '<div className="flex justify-center items-center text-center">현위치</div>';
+
+            if (aroundGymArr.length === 0) return;
+            const { latE, lonE } = aroundGymArr[0];
+            console.log(latE, lonE);
+            const loc = new kakao.maps.LatLng(latE, lonE);
+            displayMarker(loc, message);
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        fetchMsw();
       };
 
       const bounds = map.getBounds();
-      console.log(bounds.getNorthEast());
     });
   }, [currentLatLng]);
 
+  console.log(aroundGymArr);
   return (
     <div id="map">
       <div className={styles.responsiveLayout}></div>
