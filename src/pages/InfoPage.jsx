@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import './InfoPage.css';
 import axios from 'axios';
+import Review from '../components/Review';
+import Header from '../components/Header';
 
 function InfoPage() {
   const [isUsing, setIsUsing] = useState(false);
   const [infoData, setInfoData] = useState({});
-  const id = 9;
+  const id = 1;
 
   const handleStartUsing = async () => {
     setInfoData((prevData) => ({
@@ -57,7 +58,7 @@ function InfoPage() {
     axios
       .get('http://localhost:8080/api/gyms/' + id)
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
         setInfoData(response.data);
       })
       .catch((error) => {
@@ -67,13 +68,20 @@ function InfoPage() {
 
   return (
     <div>
-      <div className="gym-info">
-        <div className="button-wrapper">
-          <button className="back-button" onClick={handleBackButtonClick}>
-            &lt;
+      <Header />
+      <div className=" mx-auto my-20 px-5 w-400 border border-gray-300 w-[500px]">
+        <div className="">
+          <button
+            className="top-10 left-10 z-2 bg-gray-100 text-gray-700 px-8 py-2 rounded-md cursor-pointer text-base font-bold"
+            onClick={handleBackButtonClick}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            </svg>
           </button>
           <img
-            className="image"
+            className="w-full"
             src="https://lh5.googleusercontent.com/p/AF1QipNPy9DxuapVB_Lvsg1uKr4bcksJ0P6FYEOq4wh4=w296-h168-n-k-no"
             alt="이미지"
           />
@@ -89,19 +97,30 @@ function InfoPage() {
           <p>헬스장 혼잡도: {infoData.status}</p>
           <br />
         </div>
-        <hr className="horizontal-line" />
-        <div className="btn-container">
+        <hr className="border-none border-t border-gray-300 my-10" />
+        <div className="flex justify-end mr-4">
           {!isUsing && (
-            <button className="button-use" onClick={handleStartUsing}>
+            <button
+              className={`${
+                isUsing ? 'bg-red-500' : 'bg-green-500'
+              } text-white rounded-md h-12`}
+              onClick={handleStartUsing}
+            >
               이용하기
             </button>
           )}
           {isUsing && (
-            <button className="button-end" onClick={handleStopUsing}>
+            <button
+              className={`${
+                isUsing ? 'bg-red-500' : 'bg-green-500'
+              } text-white rounded-md h-12`}
+              onClick={handleStopUsing}
+            >
               종료하기
             </button>
           )}
         </div>
+        <Review infoData={infoData} />
       </div>
     </div>
   );

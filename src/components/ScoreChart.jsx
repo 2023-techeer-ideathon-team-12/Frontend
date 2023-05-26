@@ -1,29 +1,23 @@
-import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, BarChart } from 'recharts';
-
-const data = [
-  {
-    name: '5점',
-    pv: 800,
-  },
-  {
-    name: '4점',
-    pv: 967,
-  },
-  {
-    name: '3점',
-    pv: 1098,
-  },
-  {
-    name: '2점',
-    pv: 1200,
-  },
-  {
-    name: '1점',
-    pv: 1108,
-  },
-];
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 
 function ScoreChart() {
+  const [data, setData] = useState([]);
+  async function getData() {
+    try {
+      const res = await axios.get(`http://localhost:8080/api/reviews/star/1`);
+      console.log(res.data);
+      setData(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <BarChart
       layout="vertical"
@@ -39,8 +33,8 @@ function ScoreChart() {
     >
       <CartesianGrid stroke="#f5f5f5" />
       <XAxis type="number" />
-      <YAxis dataKey="name" type="category" />
-      <Bar dataKey="pv" barSize={20} fill="#FFC500" />
+      <YAxis dataKey="star" type="category" />
+      <Bar dataKey="count" barSize={20} fill="#FFC500" />
     </BarChart>
   );
 }

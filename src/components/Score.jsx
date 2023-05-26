@@ -1,16 +1,16 @@
 import favorite from '../assets/image/favorite.png';
 import nonfavorite from '../assets/image/nonfavorite.png';
 import ScoreChart from './ScoreChart';
-import Reply from './Reply';
 
-function Score() {
+function Score(props) {
+  const { infoData } = props;
   return (
-    <div className="w-96">
+    <div className="">
       <div>
         <div className="flex">
           {/*별점 */}
           <div className="flex flex-col justify-center">
-            <span className=" text-5xl mb-4 mx-auto">4</span>
+            <span className=" text-5xl mb-4 mx-auto">{infoData.starAvg}</span>
             {/*별 */}
             <div className="flex">
               <img className="w-6 h-6" src={favorite} />
@@ -23,9 +23,7 @@ function Score() {
           {/*막대 그래프 */}
           <ScoreChart />
         </div>
-        <div className="w-96">
-          <Reply />
-        </div>
+        <div className="w-96"></div>
       </div>
     </div>
   );
