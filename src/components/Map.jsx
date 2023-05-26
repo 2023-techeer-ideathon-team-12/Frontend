@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './Map.module.css';
+import {useNavigate} from "react-router-dom";
 
 const { kakao } = window;
 
@@ -12,6 +13,8 @@ const Map = () => {
     // longitude: 126.74015069537656,
   });
   const [aroundGymArr, setAroundGymArr] = useState([]);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     kakao.maps.load(() => {
@@ -50,11 +53,12 @@ const Map = () => {
       //
       //   displayMarker(locPosition, message);
       // }
-      const displayMarker = (locPosition, message) => {
+      const displayMarker = (locPosition, message, gymId) => {
         // 마커를 생성합니다
         const marker = new kakao.maps.Marker({
           map: map,
           position: locPosition,
+          clickable: true
         });
 
         const iwContent = message, // 인포윈도우에 표시할 내용
@@ -69,6 +73,9 @@ const Map = () => {
         // 인포윈도우를 마커위에 표시합니다
         infowindow.open(map, marker);
 
+        kakao.maps.event.addListener(marker, 'click', function () {
+          navigate(`/infopage/${gymId}`)
+        })
 
       };
 
@@ -85,15 +92,14 @@ const Map = () => {
 
           console.log(response.data)
           response.data.map(gym => {
-            const {latitude, longitude, name} = gym
+            const {id, latitude, longitude, name} = gym
             const loc = new kakao.maps.LatLng(latitude, longitude);
             const message =
                 `<div className="flex justify-center items-center text-center">${name}</div>`;
 
-            displayMarker(loc, message);
+            displayMarker(loc, message, id);
           })
-          const {latitude, longitude, name} = response.data[0]
-          console.log(latitude, longitude)
+
 
           // const lat = response.data.gym_latitude;
           // const lon = response.data.gym_longtitude;
