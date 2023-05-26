@@ -3,11 +3,10 @@ import Score from './Score';
 import Reply from './Reply';
 
 function ReviewPage(props) {
-  const { infoData } = props;
+  const { infoData, id } = props;
   return (
     <div>
       {/*맨 위*/}
-      {/*메뉴 */}
       <div>
         {/*공지 */}
         <div>
@@ -22,7 +21,7 @@ function ReviewPage(props) {
         {/*별점 */}
         <Score infoData={infoData} />
         {/*리뷰 */}
-        <Reply />
+        <Reply id={id} />
       </div>
     </div>
   );

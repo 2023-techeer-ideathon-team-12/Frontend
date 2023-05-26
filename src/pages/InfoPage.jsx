@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Review from '../components/Review';
 import Header from '../components/Header';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function InfoPage() {
   const [isUsing, setIsUsing] = useState(false);
   const [infoData, setInfoData] = useState({});
   const id = 1;
+  const location = useLocation();
+  const params = useParams();
 
   const handleStartUsing = async () => {
     setInfoData((prevData) => ({
@@ -56,7 +59,7 @@ function InfoPage() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/gyms/' + id)
+      .get('http://localhost:8080/api/gyms/' + params.id)
       .then(function (response) {
         console.log(response.data);
         setInfoData(response.data);
@@ -120,7 +123,7 @@ function InfoPage() {
             </button>
           )}
         </div>
-        <Review infoData={infoData} />
+        <Review infoData={infoData} id={params.id} />
       </div>
     </div>
   );

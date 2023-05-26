@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import ReadReply from './ReadReply';
 
-function Reply() {
+function Reply(props) {
+  const { id } = props;
   const [, setSelectedValue] = useState('regist_order');
   const [visible, setVisible] = useState(true);
   const [reviewData, setReviewData] = useState([]);
@@ -36,7 +37,9 @@ function Reply() {
 
   async function getReview() {
     try {
-      const res = await axios.get(`http://localhost:8080/api/reviews/gym/1`);
+      const res = await axios.get(
+        `http://localhost:8080/api/reviews/gym/${id}`,
+      );
       console.log(res.data);
       setReviewData(res.data);
     } catch (error) {
