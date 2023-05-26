@@ -9,11 +9,11 @@ function ReviewPage() {
       <div>
         {/*공지 */}
         <div>
-          <div className="flex">
+          <div className="flex w-96">
             <div className=" text-xl ml-2">헬스장 공지</div>
             <div className="mx-auto mr-2 text-gray-500">2011년 06월 10일</div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center w-96">
             <img src={ExampleReview} />
           </div>
         </div>

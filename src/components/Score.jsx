@@ -1,10 +1,11 @@
 import favorite from '../assets/image/favorite.png';
 import nonfavorite from '../assets/image/nonfavorite.png';
 import ScoreChart from './ScoreChart';
+import Reply from './Reply';
 
 function Score() {
   return (
-    <div>
+    <div className="w-96">
       <div>
         <div className="flex">
           {/*별점 */}
@@ -21,6 +22,9 @@ function Score() {
           </div>
           {/*막대 그래프 */}
           <ScoreChart />
+        </div>
+        <div className="w-96">
+          <Reply />
         </div>
       </div>
     </div>
