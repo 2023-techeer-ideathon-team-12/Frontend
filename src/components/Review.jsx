@@ -1,15 +1,16 @@
 import ExampleReview from '../assets/image/ExampleReview.png';
-import Score from '../components/Score';
+import Score from './Score';
+import Reply from './Reply';
 
 function ReviewPage() {
   return (
-    <div className=" h-screen w-screen">
+    <div>
       {/*맨 위*/}
       {/*메뉴 */}
       <div>
         {/*공지 */}
         <div>
-          <div className="flex w-96">
+          <div className="flex">
             <div className=" text-xl ml-2">헬스장 공지</div>
             <div className="mx-auto mr-2 text-gray-500">2011년 06월 10일</div>
           </div>
@@ -19,6 +20,8 @@ function ReviewPage() {
         </div>
         {/*별점 */}
         <Score />
+        {/*리뷰 */}
+        <Reply />
       </div>
     </div>
   );

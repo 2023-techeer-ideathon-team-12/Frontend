@@ -16,7 +16,7 @@ function ReadReply() {
           <div className=" flex flex-row border-b border-dashed border-gray-400 py-1 pl-2 font-ng text-sm ">
             <p className="ml-1 mr-3 font-ng">ID 1</p>
             <p className="mr-3 hidden border-l border-dashed border-gray-400 pl-3 pr-3 font-ng-b sm:block">
-              2000 - 00 - 00
+              2000-00-00
             </p>
             <div className="mx-auto mr-2 flex flex-row">
               <button
